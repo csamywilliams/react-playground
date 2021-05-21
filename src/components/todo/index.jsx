@@ -1,16 +1,15 @@
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useState, useRef } from 'react';
+import { v4 as uuidv4 } from 'uuid';
+
+import TodoItem from '../todo-item';
 
 const Todo = () => {
-	const [todo, setTodo] = useState('');
+	const [todo, setTodo] = useState({});
 	const [todoList, setTodoList] = useState([]);
 	const formRef = useRef();
 
-	useEffect(() => {
-		console.table(todoList);
-	}, [todoList]);
-
 	const onInputChange = (e) => {
-		setTodo(e.target.value);
+		setTodo({ uuid: uuidv4(), value: e.target.value });
 	};
 
 	const onFormSubmit = (e) => {
@@ -18,6 +17,16 @@ const Todo = () => {
 
 		setTodoList([...todoList, todo]);
 		formRef.current.reset();
+	};
+
+	const removeItem = (removeUuid) => {
+		const itemList = [...todoList];
+
+		const updatedList = itemList.filter(({ uuid }) => {
+			return uuid !== removeUuid;
+		});
+
+		setTodoList(updatedList);
 	};
 
 	return (
@@ -29,7 +38,15 @@ const Todo = () => {
 			</form>
 
 			{todoList.map((todo, idx) => {
-				return <div key={idx}>{todo}</div>;
+				return (
+					<TodoItem
+						id={todo.uuid}
+						key={todo.uuid}
+						removeItem={removeItem}
+					>
+						{todo.value}
+					</TodoItem>
+				);
 			})}
 		</div>
 	);
