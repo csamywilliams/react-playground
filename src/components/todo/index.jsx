@@ -1,7 +1,7 @@
 import React, { useState, useRef } from 'react';
 import { v4 as uuidv4 } from 'uuid';
 
-import TodoItem from '../todo-item';
+import TodoItem from './todo-item';
 
 const Todo = () => {
 	const [todo, setTodo] = useState({});
