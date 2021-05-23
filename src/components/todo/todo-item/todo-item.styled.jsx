@@ -6,6 +6,16 @@ const TodoItemStyled = styled.div`
 	align-content: center;
 	justify-content: center;
 	align-items: center;
+
+	.item {
+		&--complete {
+			text-decoration: line-through;
+		}
+
+		&--incomplete {
+			text-decoration: normal;
+		}
+	}
 `;
 
 export default TodoItemStyled;
