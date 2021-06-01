@@ -1,24 +1,40 @@
 import React, { useState } from 'react';
-import TodoItemStyled from './todo-item.styled';
+import TodoItemStyled, {
+	CompleteButton,
+	RemoveButton,
+} from './todo-item.styled';
 
-const TodoItem = ({ children, id, removeItem }) => {
+const TodoItem = ({ value, id, removeItem, onEditChangeItem }) => {
 	const [itemComplete, setItemComplete] = useState(false);
+	const [inEditMode, setInEditMode] = useState(false);
 
-	const onCheckboxChange = () => {
+	const onCompleteClick = (e) => {
+		e.preventDefault();
+
 		setItemComplete(!itemComplete);
+	};
+
+	const editItem = () => {
+		setInEditMode(!inEditMode);
 	};
 
 	return (
 		<TodoItemStyled>
-			<input type="checkbox" onChange={onCheckboxChange} />
-			<p
-				className={`item item--${
-					itemComplete ? 'complete' : 'incomplete'
-				}`}
-			>
-				{children}
-			</p>
-			<button onClick={() => removeItem(id)}>X</button>
+			{!inEditMode && (
+				<p
+					className={`item item--${
+						itemComplete ? 'complete' : 'incomplete'
+					}`}
+				>
+					{value}
+				</p>
+			)}
+			{inEditMode && (
+				<input type="text" onChange={onEditChangeItem} value={value} />
+			)}
+			<CompleteButton onClick={onCompleteClick}>?</CompleteButton>
+			<RemoveButton onClick={() => removeItem(id)}>X</RemoveButton>
+			{/* <button onClick={() => editItem()}>Edit</button> */}
 		</TodoItemStyled>
 	);
 };
