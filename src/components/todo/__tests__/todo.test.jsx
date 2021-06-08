@@ -6,6 +6,9 @@ import Todo from '../index';
 
 const setup = () => render(<Todo />);
 
+const addTodoButtonName = /add todo/i;
+const addTodoTextboxName = /add todo:/i;
+
 describe('Todo component', () => {
 	beforeEach(() => {
 		setup();
@@ -17,21 +20,21 @@ describe('Todo component', () => {
 		});
 
 		screen.getByRole('button', {
-			name: /\+/i,
+			name: addTodoButtonName,
 		});
 	});
 
 	it('should add an item to the todo list', () => {
 		userEvent.type(
 			screen.getByRole('textbox', {
-				name: /add todo:/i,
+				name: addTodoTextboxName,
 			}),
 			'bananas',
 		);
 
 		userEvent.click(
 			screen.getByRole('button', {
-				name: /\+/i,
+				name: addTodoButtonName,
 			}),
 		);
 
@@ -41,14 +44,14 @@ describe('Todo component', () => {
 	it('should remove an item from the list', () => {
 		userEvent.type(
 			screen.getByRole('textbox', {
-				name: /add todo:/i,
+				name: addTodoTextboxName,
 			}),
 			'bananas',
 		);
 
 		userEvent.click(
 			screen.getByRole('button', {
-				name: /\+/i,
+				name: addTodoButtonName,
 			}),
 		);
 
@@ -56,7 +59,7 @@ describe('Todo component', () => {
 
 		userEvent.click(
 			screen.getByRole('button', {
-				name: /x/i,
+				name: /remove item bananas/i,
 			}),
 		);
 

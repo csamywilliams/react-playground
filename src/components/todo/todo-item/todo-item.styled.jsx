@@ -9,6 +9,7 @@ const TodoItemStyled = styled.div`
 
 	.item {
 		flex: 1;
+		justify-content: center;
 		background-color: #f2f2f2;
 		border-radius: 3px;
 		margin: 0.5rem;
@@ -24,9 +25,9 @@ const TodoItemStyled = styled.div`
 `;
 
 const CompleteButton = styled.button`
-	background-color: #26e853;
-	color: white;
-	border: none;
+	margin: 1%;
+	background-color: #fff;
+	border: 1px solid #aeb8e1;
 	border-radius: 3px;
 	cursor: pointer;
 
@@ -36,9 +37,9 @@ const CompleteButton = styled.button`
 `;
 
 const RemoveButton = styled.button`
-	background-color: #e82626;
-	border: none;
-	color: white;
+	margin: 1%;
+	background-color: #fff;
+	border: 1px solid #aeb8e1;
 	border-radius: 3px;
 	cursor: pointer;
 

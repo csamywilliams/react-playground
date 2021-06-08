@@ -1,5 +1,6 @@
 import React, { useState, useRef } from 'react';
 import { v4 as uuidv4 } from 'uuid';
+import { GrAdd } from 'react-icons/gr';
 
 import TodoStyled, { FormStyled, AddButton, TodoInput } from './todo.styled';
 import TodoItem from './todo-item';
@@ -30,18 +31,6 @@ const Todo = () => {
 		setTodoList(updatedList);
 	};
 
-	const editItem = (editUuid, updatedValue) => {
-		console.log('in here');
-		// const itemList = [...todoList];
-		// const updatedList = itemList.map((item) => {
-		// 	if (item.uuid === editUuid) {
-		// 		item.value = updatedValue;
-		// 	}
-		// 	return item;
-		// });
-		// setTodoList(updatedList);
-	};
-
 	return (
 		<TodoStyled>
 			<h1>Todo App</h1>
@@ -54,8 +43,12 @@ const Todo = () => {
 						onChange={onInputChange}
 						placeholder="Todo"
 					/>
-					<AddButton id="add-todo-button" onClick={onFormSubmit}>
-						+
+					<AddButton
+						id="add-todo-button"
+						aria-label="Add todo"
+						onClick={onFormSubmit}
+					>
+						<GrAdd />
 					</AddButton>
 				</form>
 
@@ -65,7 +58,6 @@ const Todo = () => {
 							id={todo.uuid}
 							key={todo.uuid}
 							removeItem={removeItem}
-							onEditChangeItem={editItem}
 							value={todo.value}
 						/>
 					);

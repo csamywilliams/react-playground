@@ -1,12 +1,14 @@
 import React, { useState } from 'react';
+import { BsTrash } from 'react-icons/bs';
+import { TiTick } from 'react-icons/ti';
+
 import TodoItemStyled, {
 	CompleteButton,
 	RemoveButton,
 } from './todo-item.styled';
 
-const TodoItem = ({ value, id, removeItem, onEditChangeItem }) => {
+const TodoItem = ({ value, id, removeItem }) => {
 	const [itemComplete, setItemComplete] = useState(false);
-	const [inEditMode, setInEditMode] = useState(false);
 
 	const onCompleteClick = (e) => {
 		e.preventDefault();
@@ -14,27 +16,28 @@ const TodoItem = ({ value, id, removeItem, onEditChangeItem }) => {
 		setItemComplete(!itemComplete);
 	};
 
-	const editItem = () => {
-		setInEditMode(!inEditMode);
-	};
-
 	return (
 		<TodoItemStyled>
-			{!inEditMode && (
-				<p
-					className={`item item--${
-						itemComplete ? 'complete' : 'incomplete'
-					}`}
-				>
-					{value}
-				</p>
-			)}
-			{inEditMode && (
-				<input type="text" onChange={onEditChangeItem} value={value} />
-			)}
-			<CompleteButton onClick={onCompleteClick}>?</CompleteButton>
-			<RemoveButton onClick={() => removeItem(id)}>X</RemoveButton>
-			{/* <button onClick={() => editItem()}>Edit</button> */}
+			<p
+				className={`item item--${
+					itemComplete ? 'complete' : 'incomplete'
+				}`}
+			>
+				{value}
+			</p>
+
+			<CompleteButton
+				aria-label={`Complete item ${value}`}
+				onClick={onCompleteClick}
+			>
+				<TiTick />
+			</CompleteButton>
+			<RemoveButton
+				aria-label={`Remove item ${value}`}
+				onClick={() => removeItem(id)}
+			>
+				<BsTrash />
+			</RemoveButton>
 		</TodoItemStyled>
 	);
 };
